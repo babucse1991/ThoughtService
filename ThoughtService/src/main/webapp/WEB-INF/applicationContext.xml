@@ -28,6 +28,8 @@
 		</property>		
 	</bean>
 	
+	<!-- <Resource auth="Container" defaultTransactionIsolation="READ_COMMITTED" driverClassName="oracle.jdbc.driver.OracleDriver" initialSize="0" logAbandoned="true" maxActive="25" maxIdle="5" minEvictableIdleTimeMillis="900000" minIdle="1" name="application/cn=GSSS_GIR_Datasource,ou=Database Connections" numTestsPerEvictionRun="25" password="oputest1" removeAbandoned="true" removeAbandonedTimeout="900" testOnBorrow="true" testWhileIdle="true" timeBetweenEvictionRunsMillis="900000" type="javax.sql.DataSource" url="jdbc:oracle:thin:@R09TN00.bnymellon.net:1537/oocait01.bnymellon.net" username="OPU06U_APP" validationQuery="select 1 from dual"/> -->
+	
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />

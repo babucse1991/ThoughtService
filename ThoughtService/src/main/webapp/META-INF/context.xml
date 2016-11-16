@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+	 <ResourceLink 	name="jdbc/OPUS_Datasource" global="application/cn=GSSS_GIR_Datasource,ou=Database Connections" />
+</Context>

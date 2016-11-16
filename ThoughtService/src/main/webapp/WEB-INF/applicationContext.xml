@@ -1,0 +1,86 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:task="http://www.springframework.org/schema/task"
+       
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+       http://www.springframework.org/schema/beans	http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+       http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd" >
+       
+	<context:component-scan base-package="com.thought.service.*" />
+	<mvc:annotation-driven />
+
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
+	
+	<!-- DataSource to be set in Tomcat -->
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>java:comp/env/jdbc/OPUS_Datasource</value>
+		</property>		
+	</bean>
+	
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- packagesToScan is to avoid persistence.xml configuration -->
+		<property name="packagesToScan" value="com.thought.service.*" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+			<!-- <property name="generateDdl" value="true" /> -->
+			<property name="showSql" value="false" />
+			<property name="database" value="ORACLE" />
+		</bean>
+		</property>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	
+	<bean id="transactionSupport" class="com.thought.service.common.database.TransactionSupport" />
+		
+	<bean id="transactionTemplate" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean">
+		<property name="proxyInterfaces">
+			<list>
+				<value>com.thought.service.common.database.TransactionTemplate</value>
+			</list>
+		</property>
+		<!-- <property name="proxyTargetClass" value="false" />   -->
+		<property name="transactionManager" ref="transactionManager" />
+		<property name="target" ref="transactionSupport" />
+	
+		<property name="transactionAttributes">
+			<props>
+				<prop key="save">PROPAGATION_REQUIRES_NEW,-java.lang.Exception</prop>
+				<prop key="postSave">PROPAGATION_NESTED,-java.lang.Exception</prop>
+			</props>
+		</property>
+	</bean>
+	
+	<!-- A string containing two asterisks ('**') matches zero or more characters. This could include the path separator '/'. -->
+	<!-- An asterisk ('*') matches zero or more characters, up to the occurrence of a '/' character (which serves as a path separator) -->
+	<mvc:interceptors>
+		<mvc:interceptor> 
+			<mvc:mapping path="/**" />   
+			<mvc:mapping path="/service/*" /> 
+			<bean class="com.thought.service.interceptor.ApplicationInitInterceptor" />    
+		</mvc:interceptor> 
+	</mvc:interceptors>
+    
+    	
+</beans>

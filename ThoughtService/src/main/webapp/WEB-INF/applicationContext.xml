@@ -22,13 +22,28 @@
 	</bean>
 	
 	<!-- DataSource to be set in Tomcat -->
-	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+	<!-- <bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName">
 			<value>java:comp/env/jdbc/OPUS_Datasource</value>
 		</property>		
+	</bean> -->
+
+	<bean name="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://mspire.in:3306/poc" />
+		<property name="username" value="poc" />
+		<property name="password" value="babu@Selvam10" />
 	</bean>
-	
-	<!-- <Resource auth="Container" defaultTransactionIsolation="READ_COMMITTED" driverClassName="oracle.jdbc.driver.OracleDriver" initialSize="0" logAbandoned="true" maxActive="25" maxIdle="5" minEvictableIdleTimeMillis="900000" minIdle="1" name="application/cn=GSSS_GIR_Datasource,ou=Database Connections" numTestsPerEvictionRun="25" password="oputest1" removeAbandoned="true" removeAbandonedTimeout="900" testOnBorrow="true" testWhileIdle="true" timeBetweenEvictionRunsMillis="900000" type="javax.sql.DataSource" url="jdbc:oracle:thin:@R09TN00.bnymellon.net:1537/oocait01.bnymellon.net" username="OPU06U_APP" validationQuery="select 1 from dual"/> -->
+
+	<!-- <Resource auth="Container" defaultTransactionIsolation="READ_COMMITTED" 
+		driverClassName="com.mysql.jdbc.Driver" initialSize="0" logAbandoned="true" 
+		maxActive="25" maxIdle="5" minEvictableIdleTimeMillis="900000" minIdle="1" 
+		name="application/cn=GSSS_GIR_Datasource,ou=Database Connections" numTestsPerEvictionRun="25" 
+		password="babu@Selvam10" removeAbandoned="true" removeAbandonedTimeout="900" testOnBorrow="true" 
+		testWhileIdle="true" timeBetweenEvictionRunsMillis="900000" type="javax.sql.DataSource" 
+		url="jdbc:mysql://mspire.in/poc" 
+		username="mspire14" validationQuery="select 1 from dual"/> -->
 	
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -39,13 +54,13 @@
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 			<!-- <property name="generateDdl" value="true" /> -->
 			<property name="showSql" value="false" />
-			<property name="database" value="ORACLE" />
+			<property name="database" value="MYSQL" />
 		</bean>
 		</property>
 		<property name="jpaProperties">
 			<props>
 				<prop key="hibernate.temp.use_jdbc_metadata_defaults">false</prop>
-				<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 			</props>
 		</property>
 	</bean>

@@ -32,8 +32,8 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://mspire.in:3306/poc" />
-		<property name="username" value="poc" />
-		<property name="password" value="babu@Selvam10" />
+		<property name="username" value="" />
+		<property name="password" value="" />
 	</bean>
 
 	<!-- <Resource auth="Container" defaultTransactionIsolation="READ_COMMITTED" 

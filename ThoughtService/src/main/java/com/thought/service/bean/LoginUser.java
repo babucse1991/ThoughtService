@@ -1,4 +1,4 @@
-package com.thought.service.controller;
+package com.thought.service.bean;
 
 import java.io.Serializable;
 import java.util.Date;

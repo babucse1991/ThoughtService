@@ -3,11 +3,6 @@ package com.thought.service.common.database;
 import com.thought.service.model.ModelTemplate;
 
 
-/**
- * Top level persistence handling support {@code abstract} class. The implementing classes can add the request 
- * specfic persistence tasks by overriding the available methods appropriately.
- *
- */
 public abstract class PersistenceHandler {
 	
 	/**

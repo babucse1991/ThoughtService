@@ -2,7 +2,7 @@ package com.thought.service.model;
 
 import java.util.List;
 
-import com.thought.service.controller.LoginUser;
+import com.thought.service.bean.LoginUser;
 
 public class HomeModel extends ModelTemplate {
 

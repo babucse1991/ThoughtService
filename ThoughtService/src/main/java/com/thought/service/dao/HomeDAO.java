@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 
-import com.thought.service.controller.LoginUser;
+import com.thought.service.bean.LoginUser;
 import com.thought.service.model.HomeModel;
 
 @Service("homeDAO")

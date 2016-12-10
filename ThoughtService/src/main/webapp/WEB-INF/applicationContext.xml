@@ -32,30 +32,19 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://mspire.in:3306/poc" />
-		<property name="username" value="poc" />
-		<property name="password" value="babu@Selvam10" />
+		<property name="username" value="" />
+		<property name="password" value="" />
 	</bean>
 
-	<!-- <Resource auth="Container" defaultTransactionIsolation="READ_COMMITTED" 
-		driverClassName="com.mysql.jdbc.Driver" initialSize="0" logAbandoned="true" 
-		maxActive="25" maxIdle="5" minEvictableIdleTimeMillis="900000" minIdle="1" 
-		name="application/cn=GSSS_GIR_Datasource,ou=Database Connections" numTestsPerEvictionRun="25" 
-		password="babu@Selvam10" removeAbandoned="true" removeAbandonedTimeout="900" testOnBorrow="true" 
-		testWhileIdle="true" timeBetweenEvictionRunsMillis="900000" type="javax.sql.DataSource" 
-		url="jdbc:mysql://mspire.in/poc" 
-		username="mspire14" validationQuery="select 1 from dual"/> -->
-	
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<!-- packagesToScan is to avoid persistence.xml configuration -->
 		<property name="packagesToScan" value="com.thought.service.*" />
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-			<!-- <property name="generateDdl" value="true" /> -->
-			<property name="showSql" value="false" />
-			<property name="database" value="MYSQL" />
-		</bean>
+				<property name="generateDdl" value="true" />
+				<property name="showSql" value="false" />
+				<property name="database" value="MYSQL" />
+			</bean>
 		</property>
 		<property name="jpaProperties">
 			<props>
@@ -84,13 +73,10 @@
 		<property name="transactionAttributes">
 			<props>
 				<prop key="save">PROPAGATION_REQUIRES_NEW,-java.lang.Exception</prop>
-				<prop key="postSave">PROPAGATION_NESTED,-java.lang.Exception</prop>
 			</props>
 		</property>
 	</bean>
 	
-	<!-- A string containing two asterisks ('**') matches zero or more characters. This could include the path separator '/'. -->
-	<!-- An asterisk ('*') matches zero or more characters, up to the occurrence of a '/' character (which serves as a path separator) -->
 	<mvc:interceptors>
 		<mvc:interceptor> 
 			<mvc:mapping path="/**" />   

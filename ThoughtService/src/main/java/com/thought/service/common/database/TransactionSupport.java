@@ -3,10 +3,6 @@ package com.thought.service.common.database;
 import com.thought.service.model.ModelTemplate;
 
 
-/**
- * Implementation class of the {@code TransactionTemplate} interface - used by Spring {@code TransactionProxyFactoryBean} to create proxy class 
- * 
- */
 public class TransactionSupport implements TransactionTemplate {
 	
 	
